@@ -1,32 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
-import { getLatestGames } from './lib/metacritic';
+import { StyleSheet, Text, View, Image, Button, Alert, ScrollView, SafeAreaView } from 'react-native';
+import Main from './components/Main';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
-  const [games , setGames] = useState([]);
 
-  useEffect(() => {
-    getLatestGames().then((games) => {
-      setGames(games);
-    })
-  })
   return (
-    <>
+    <SafeAreaProvider>
       <View style={styles.container}>
         <StatusBar style="auto" />
-
-        {games?.map((game) => {
-          return (
-            <View key={game.slug}>
-              <Image source={{ uri: game.image }} style={{ width: 200, height: 200 }} />
-              <Text>{game.title}</Text>
-              <Text>{game.score}</Text>
-            </View>
-          );
-        })}
+        <Main />
       </View>
-    </>
+    </SafeAreaProvider>
   );
 }
 
@@ -36,5 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 12,
   },
 });
