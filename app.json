@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "curso-react-native-metacritic-app",
-    "slug": "curso-react-native-metacritic-app",
+    "name": "react-native-techchallenge",
+    "slug": "react-native-techchallenge",
     "version": "1.0.0",
     "orientation": "portrait",
+    "platforms": ["android", "ios"],
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -17,6 +18,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.vandalia.techchallenge",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
