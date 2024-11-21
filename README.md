@@ -6,6 +6,10 @@ Prueba técnica desarrollada con **React Native** y **Expo**.
 
 [![Video de prueba](https://img.shields.io/badge/Ver%20Video-Google%20Drive-blue?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/1-k_FGsI5sDqIu15dsXpl0yV6bibr6R6E/view?usp=drive_link)
 
+## Build de preview en APK
+
+[![APK preview](https://img.shields.io/badge/Ver%20Video-Google%20Drive-blue?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/1D0Z552Hw6K_rt2CNf9dsQb-mf12GiuZ1/view?usp=drive_link)
+
 ## Requisitos previos
 
 Asegúrate de tener instalados los siguientes componentes:
