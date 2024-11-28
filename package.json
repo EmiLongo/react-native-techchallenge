@@ -21,7 +21,7 @@
     "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-native": "0.76.2",
+    "react-native": "^0.76.2",
     "react-native-app-auth": "^8.0.0",
     "react-native-keychain": "^9.2.1",
     "react-native-paper": "^5.12.5",
@@ -39,7 +39,9 @@
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
-        "exclude": ["@expo/metro-runtime"]
+        "exclude": [
+          "@expo/metro-runtime"
+        ]
       }
     }
   },

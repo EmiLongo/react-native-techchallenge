@@ -1,11 +1,15 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginWithStrava, refreshToken } from '../auth';
+import { Alert } from 'react-native';
 
 const useAuthStore = create((set) => ({
   accessToken: null,
   refreshToken: null,
   isAuth: false,
+
+  setAccessToken: (token) => set({ accessToken: token }),
+  clearAccessToken: () => set({ accessToken: null }),
   
   // Función para establecer el estado de autenticación
   setAuth: (value) => set({ isAuth: value }),
@@ -14,35 +18,37 @@ const useAuthStore = create((set) => ({
   login: async () => {
     try {
       const result = await loginWithStrava();
+
       set({
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
+        accessToken: result.access_token,
+        refreshToken: result.refresh_token,
         isAuth: true,
       });
 
       // Guardar tokens en AsyncStorage
-      await AsyncStorage.setItem('accessToken', result.accessToken);
-      await AsyncStorage.setItem('refreshToken', result.refreshToken);
+      await AsyncStorage.setItem('accessToken', result.access_token);
+      await AsyncStorage.setItem('refreshToken', result.refresh_token);
     } catch (error) {
-      console.error('Error during login:', error);
+      Alert.alert('Error during login:', error);
     }
   },
 
   // Función para refrescar el token
   refresh: async () => {
     try {
-      const { refreshToken: currentRefreshToken } = useAuthStore.getState();
-      if (!currentRefreshToken) {
-        throw new Error('No refresh token available');
-      }
+      // cuando CODE no muestre error
+      // const { refreshToken: currentRefreshToken } = useAuthStore.getState();
+      // if (!currentRefreshToken) {
+      //   throw new Error('No refresh token available');
+      // }
 
-      const result = await refreshToken(currentRefreshToken);
-      set({ accessToken: result.accessToken });
+      const result = await refreshToken();
+      set({ accessToken: result.access_token });
 
       // Actualizar el nuevo token en AsyncStorage
-      await AsyncStorage.setItem('accessToken', result.accessToken);
+      await AsyncStorage.setItem('accessToken', result.access_token);
     } catch (error) {
-      console.error('Error refreshing token:', error);
+      Alert.alert('Error refreshing token:', error);
     }
   },
 

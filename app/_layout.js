@@ -1,11 +1,18 @@
+// app/_layout.js
 import { Slot } from 'expo-router';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Crear una única instancia de QueryClient
+const queryClient = new QueryClient();
 
 export default function Layout() {
   return (
-    <View style={styles.container}>
-      <Slot />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <View style={styles.container}>
+        <Slot />
+      </View>
+    </QueryClientProvider>
   );
 }
 

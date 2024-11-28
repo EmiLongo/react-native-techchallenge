@@ -1,8 +1,31 @@
-import React from 'react';
+// components/Main.jsx
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { CyclingIcon, MountainIcon, RunningIcon, WalkingIcon } from '../assets/Icons';
+import { useAthleteData } from '../hooks/useStravaData';
+import useStravaStore from '../state/useStravaStore';
+import useAuthStore from "../state/authStore";
 
 const ActivityMenu = () => {
+  // const { isAuth, setAuth, accessToken, login, logout, restoreTokens } = useAuthStore();
+
+  const accessToken = useAuthStore((state) => state.accessToken);
+
+  const { data, isLoading, error } = useAthleteData(accessToken);
+
+  const { athleteData } = useStravaStore();
+  console.log('athleteData', athleteData);
+  const [firstname, setFirstname] = useState(null);
+  
+
+  // Efecto para asegurar que obtenemos el `firstname`
+  useEffect(() => {
+    if (data && data.firstname) {
+      // Si los datos ya están en el estado global
+      setFirstname(data.firstname);
+    } 
+  }, [data]);
+
   const activities = [
     {
       icon: <WalkingIcon />,
@@ -33,7 +56,8 @@ const ActivityMenu = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.title}>Elige tu Actividad</Text>
+        <Text style={styles.title}>Hola, {firstname}!</Text>
+        <Text style={styles.subtitle}>Elige tu Actividad</Text>
         <View style={styles.activities}>
           {activities.map((activity, index) => (
             <View key={index} style={styles.activityItem}>
@@ -71,6 +95,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#6b21a8',
+    marginBottom: 16,
+  },
+  subtitle: {
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#6b21a8',

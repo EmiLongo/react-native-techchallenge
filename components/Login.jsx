@@ -5,29 +5,24 @@ import { useRouter } from 'expo-router';
 import { LogoStrava } from '../assets/Icons.jsx';
 
 const Login = () => {
-  const { isAuth, setAuth, accessToken, login, logout, restoreTokens } = useAuthStore();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { isAuth, refresh, setAuth } = useAuthStore();
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
   const router = useRouter();
-
-  const handleLogin = () => {
-    if (!username || !password) {
-      Alert.alert("Error", "Por favor completa todos los campos");
-      return;
-    }
-    // Hay que terminar de configurar la app para usar el Oauth
-    // try {
-    //   await login();
-    //   setAuth(true);
-    //   router.push("/group/main");
-    // } catch (error) {
-    //   console.error('Error durante el inicio de sesión:', error);
-    //   Alert.alert('Error', 'No se pudo iniciar sesión con Strava');
+  const getRefresh = refresh;
+  const handleLogin = async () => {
+    // if (!username || !password) {
+    //   Alert.alert("Error", "Por favor completa todos los campos");
+    //   return;
     // }
-
-    // Simulación de inicio de sesión exitoso
-    setAuth(true)
-    router.push("/group/main");
+    try {
+      await getRefresh();
+      setAuth(true);
+      router.push("/group/main");
+    } catch (error) {
+      console.error('Error durante el inicio de sesión:', error);
+      Alert.alert('Error', 'No se pudo iniciar sesión con Strava');
+    }
   };
 
     // Restaurar tokens al iniciar la app
@@ -48,7 +43,7 @@ const Login = () => {
         <Text style={styles.subtitle}>Iniciar Sesión con Strava.com</Text>
       </View>
       <Text style={styles.title}>Selecciona una cuenta</Text>
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder="Nombre de usuario"
         placeholderTextColor="#aaa"
@@ -62,7 +57,7 @@ const Login = () => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-      />
+      /> */}
       <Pressable onPress={handleLogin} style={{ backgroundColor: '#fc5200', padding: 10, borderRadius: 5 }}>
           <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Login with Strava</Text>
       </Pressable>

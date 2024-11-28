@@ -1,9 +1,12 @@
+// components/User.jsx
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { AwardsIcon, CalendarTodayIcon, DumbbellIcon, TrendingUpIcon } from '../assets/Icons';
 import { Feather } from "@expo/vector-icons";
+import useStravaStore from '../state/useStravaStore';
 const User = () => {
+  const athleteData = useStravaStore((state) => state.athleteData);
+  console.log('athleteData en user', athleteData);
   const userData = {
-    name: 'Ana García',
     level: 'Intermedio',
     daysActive: 45,
     completedWorkouts: 38,
@@ -29,10 +32,10 @@ const User = () => {
       <View style={styles.card}>
         <View style={styles.header}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>{userData.name.charAt(0)}</Text>
+            <Text style={styles.avatarText}>{athleteData?.firstname.charAt(0) || 'A'}</Text>
           </View>
           <View>
-            <Text style={styles.name}>{userData.name}</Text>
+            <Text style={styles.name}>{athleteData?.firstname} {athleteData?.lastname}</Text>
             <View style={styles.levelContainer}>
               <AwardsIcon />
               <Text style={styles.level}>{userData.level}</Text>

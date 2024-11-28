@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 
 export default function Layout() {
   const { isAuth } = useAuthStore();
+
   return (
     <View style={styles.container}>
       <Header />
